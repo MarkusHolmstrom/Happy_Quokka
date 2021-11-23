@@ -63,6 +63,8 @@
     <Compile Include="Assets\Scripts\Quokka.cs" />
     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Enviroment\MapCreator.cs" />
+    <Compile Include="Assets\Scripts\Options\Option.cs" />
+    <Compile Include="Assets\Scripts\Story\StoryManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
