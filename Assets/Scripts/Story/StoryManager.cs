@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SceneManagement))]
 public class StoryManager : MonoBehaviour
 {
     // Singleton:
@@ -9,15 +10,17 @@ public class StoryManager : MonoBehaviour
     public static StoryManager Instance { get { return _instance; } }
 
     // 
+    private SceneManagement sceneManagement;
+
 
     void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
 
-            //Rest of your Awake code
+            sceneManagement = GetComponent<SceneManagement>();
+            DontDestroyOnLoad(this.gameObject);
 
         }
         else
@@ -36,6 +39,7 @@ public class StoryManager : MonoBehaviour
     public Vector3Int MoveStory(Option opt)
     {
         Debug.Log("Quokka detected");
+        sceneManagement.LoadANewScene(opt.sceneName);
         return Vector3Int.zero;
     }
 }

@@ -47,7 +47,7 @@ public class Quokka : MonoBehaviour
     private Transform _weaponHolder;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _weapons.Add(katana);
@@ -55,6 +55,8 @@ public class Quokka : MonoBehaviour
         _startChainSawPosition = chainSaw.transform.localPosition;
         _startKatanaPosition = katana.transform.localPosition;
         curWeapon = ChangeWeapon(chainSaw);
+        // Quokka must be alive during scene changes, no?
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -78,7 +80,8 @@ public class Quokka : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && (_isGrounded || Time.time - _lastTimeGrounded <= _rememberGroundedFor || _additionalJump > 0))
+        if (Input.GetKeyDown(KeyCode.Space) && 
+            (_isGrounded || Time.time - _lastTimeGrounded <= _rememberGroundedFor || _additionalJump > 0))
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
             _additionalJump--;

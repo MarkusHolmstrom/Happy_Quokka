@@ -56,14 +56,15 @@
     <Compile Include="Assets\Scripts\Enviroment\Seesaw.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Chainsaw.cs" />
+    <Compile Include="Assets\Scripts\Story\SceneManagement.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Weapons\Katana.cs" />
+    <Compile Include="Assets\Scripts\Options\Option.cs" />
     <Compile Include="Assets\Scripts\Enviroment\SpinObstacle.cs" />
     <Compile Include="Assets\Scripts\Enviroment\MapModule.cs" />
     <Compile Include="Assets\Scripts\Quokka.cs" />
     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Enviroment\MapCreator.cs" />
-    <Compile Include="Assets\Scripts\Options\Option.cs" />
     <Compile Include="Assets\Scripts\Story\StoryManager.cs" />
   </ItemGroup>
   <ItemGroup>
