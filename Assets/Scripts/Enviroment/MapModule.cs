@@ -13,25 +13,17 @@ namespace Enviroment
         private GameObject[] _ledges = new GameObject[2];
 
         [SerializeField]
-        private Transform _startPosition;
+        private Transform _enemySpawnPosition;
 
-        public readonly Vector3 midPosition = Vector3.zero;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         public void DeActivateBorder(int index)
         {
             _borders[index].SetActive(false);
+        }
+
+        public Transform GetSpawnTransform()
+        {
+            return _enemySpawnPosition;
         }
     }
 }

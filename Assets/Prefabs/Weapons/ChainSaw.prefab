@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7661590511573559609}
   - component: {fileID: 849763555348146312}
+  - component: {fileID: 9149524692623324074}
   m_Layer: 0
   m_Name: ChainSaw
   m_TagString: Untagged
@@ -337,6 +338,23 @@ MonoBehaviour:
   - {fileID: 7661590512008780203}
   - {fileID: 7661590511234048717}
   - {fileID: 7661590512189086445}
+  _damage: 1.5
+--- !u!70 &9149524692623324074
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661590511573559608}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  m_Size: {x: 1, y: 0.5}
+  m_Direction: 1
 --- !u!1 &7661590511676281414
 GameObject:
   m_ObjectHideFlags: 0

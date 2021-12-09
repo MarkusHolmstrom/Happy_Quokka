@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Scenes information:
+// StartScene = a startscene
+// 100, 001 and 010 are next, depending on which option the player chooses
+// The island scenes are last and pretty much empty
+
 public class StoryManager : MonoBehaviour
 {
     // Singleton:

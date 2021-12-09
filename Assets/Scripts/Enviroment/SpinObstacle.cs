@@ -7,18 +7,12 @@ namespace Enviroment
     public class SpinObstacle : MonoBehaviour
     {
         [SerializeField]
-        private GameObject[] arms = new GameObject[2];
+        private GameObject[] _arms = new GameObject[2];
 
         [SerializeField]
         private float _rotateSpeed = 6.0f;
         private float _angleZ = 0;
         private int _rotateDirection = 1;
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         // Update is called once per frame
         void Update()
@@ -29,7 +23,7 @@ namespace Enviroment
 
         public void RemoveOneArm()
         {
-            arms[1].SetActive(false);
+            _arms[1].SetActive(false);
         }
 
         public void ChangeRotateSpeed(float newSpeed)

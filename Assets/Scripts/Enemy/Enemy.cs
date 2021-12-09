@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CloseToPlayer(_playerNoticeDistance) && EnemyState.CurrentState == EnemyState.State.Idle)
+        if (EnemyState.CurrentState == EnemyState.State.Idle && CloseToPlayer(_playerNoticeDistance))
         {
             _pingPong.ChaseAfterPlayer(_goQuokka);
         }
@@ -45,8 +45,9 @@ public class Enemy : MonoBehaviour
 
     private bool CloseToPlayer(int distance)
     {
-        if (distance < Vector3.Distance(transform.position, _goQuokka.transform.position)) 
+        if (distance > Vector3.Distance(transform.position, _goQuokka.transform.position)) 
         {
+            // Debug.Log("How bout a selfie, mate?");
             EnemyState.CurrentState = EnemyState.State.Chasing;
             return true;
         }
@@ -75,5 +76,4 @@ public class Enemy : MonoBehaviour
             _quokka.InjureQuokka(_damage);
         }
     }
-
 }

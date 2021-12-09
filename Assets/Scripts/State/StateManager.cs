@@ -12,10 +12,10 @@ using UnityEngine.UI;
 public class StateManager : MonoBehaviour
 {
     [SerializeField]
-    private Text livesText;
+    private Text _livesText;
 
     // Saves the states as a list, can be useful if the game option of visiting former scenes
-    private LinkedList<State> states = new LinkedList<State>();
+    private LinkedList<State> _states = new LinkedList<State>();
 
     // Singleton:
     private static StateManager _instance;
@@ -38,11 +38,6 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void SetupFirstState()
     {
@@ -61,24 +56,24 @@ public class StateManager : MonoBehaviour
     /// <param name="state"></param>
     public void AddNewState(State state)
     {
-        states.AddLast(state);
+        _states.AddLast(state);
     }
 
     /// <summary>
-    /// Only updates current state and health when Quokka gets injured
-    /// Also checks if Quokka have any lives remaining
+    /// Only updates current state and health for the UI when Quokka gets 
+    /// injured. Also checks how many lives are remaining
     /// </summary>
     /// <param name="damage"></param>
     public void RemoveLife(float damage) 
     {
-        states.Last.Value.Lives -= damage;
-        if (states.Last.Value.Lives > 0)
+        _states.Last.Value.Lives -= damage;
+        if (_states.Last.Value.Lives > 0)
         {
-            CalculateLivesText(states.Last.Value.Lives);
+            CalculateLivesText(_states.Last.Value.Lives);
         }
         else
         {
-            livesText.text = "Dead as a dodo!";
+            _livesText.text = "Dead as a dodo!";
             Debug.Log("Game over!!");
         }
     }
@@ -100,17 +95,18 @@ public class StateManager : MonoBehaviour
                 even = true;
             }
         }
-        livesText.text = text;
+        _livesText.text = text;
     }
 
     public void AddScore(int newScore) 
     {
-        states.Last.Value.Score += newScore;
+        _states.Last.Value.Score += newScore;
     }
-    // Important distinction from the class Weapon, this is only enum from the State class
+    // Important distinction from the class Weapon, this is only enum from
+    // the State class, pretty stupid to name them both Weapon...
     public State.Weapon ChangeCurrentWeapon(State.Weapon weapon)
     {
-        states.Last.Value.CurrentWeapon = weapon;
+        _states.Last.Value.CurrentWeapon = weapon;
         return weapon;
     }
 }

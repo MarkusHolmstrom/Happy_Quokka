@@ -2,12 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Enviroment;
+using Factory; // From GameFactory class
 
 public class MapCreator : MonoBehaviour
 {
-    public GameObject modulePrefab;
-    public GameObject seesawPrefab;
-    public GameObject spinOpstaclePrefab;
+    [SerializeField]
+    private GameObject _modulePrefab;
+    [SerializeField]
+    private GameObject _seesawPrefab;
+    [SerializeField]
+    private GameObject _spinOpstaclePrefab;
+
+    [SerializeField]
+    private GameObject _enemyPrefab;
+    [Range(0, 5)]
+    [SerializeField]
+    private int _nrOfEnemiesPerScene = 3;
 
     private List<MapModule> _mapModules = new List<MapModule>();
     private float _xPosition = 0, _yPosition = 0;
@@ -15,10 +25,13 @@ public class MapCreator : MonoBehaviour
 
     private int _obstacleIndex;
 
+    GameFactory gameFactory = new GameFactory();
+
     // Start is called before the first frame update
     void Start()
     {
         LoadNewLevel(5, 3, 15);
+        GenerateEnemies(_nrOfEnemiesPerScene);
     }
 
     // Update is called once per frame
@@ -62,17 +75,17 @@ public class MapCreator : MonoBehaviour
     
     private GameObject GetModuleCorner(int cornerIndex)
     {
-        GameObject mod = Instantiate(modulePrefab, new Vector3(_xPosition, _yPosition, 0), Quaternion.identity);
+        GameObject mod = Instantiate(_modulePrefab, new Vector3(_xPosition, _yPosition, 0), Quaternion.identity);
         MapModule module = mod.GetComponent<MapModule>();
         if (_obstacleIndex == 0)
         {
-            GameObject seesaw = Instantiate(seesawPrefab, mod.transform);
+            GameObject seesaw = Instantiate(_seesawPrefab, mod.transform);
             seesaw.transform.localPosition = Vector3.zero;
             _obstacleIndex++;
         }
         else
         {
-            GameObject spin = Instantiate(spinOpstaclePrefab, mod.transform);
+            GameObject spin = Instantiate(_spinOpstaclePrefab, mod.transform);
             spin.transform.localPosition = Vector3.zero;
             _obstacleIndex = 0;
         }
@@ -119,5 +132,21 @@ public class MapCreator : MonoBehaviour
         }
         _mapModules.Add(module);
         return mod;
+    }
+
+    private void GenerateEnemies(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            gameFactory.CreateItem(IGameFactory.Item.Enemy, SetUpEnemy(i));
+        }
+    }
+
+    private GameObject SetUpEnemy(int index)
+    {
+        GameObject enemy = Instantiate(_enemyPrefab);
+        enemy.transform.position = _mapModules[index].GetSpawnTransform().position;
+        Debug.LogWarning(enemy.transform.position);
+        return enemy;
     }
 }

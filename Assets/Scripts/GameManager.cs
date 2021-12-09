@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject startScreen;
+    [SerializeField]
+    private GameObject startScreen;
 
     // Start is called before the first frame update
     void Awake()
     {
         startScreen = GameObject.FindGameObjectWithTag("StartScreen");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void StartMenu()

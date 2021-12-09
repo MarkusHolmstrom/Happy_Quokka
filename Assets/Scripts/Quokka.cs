@@ -168,7 +168,6 @@ public class Quokka : MonoBehaviour
     }
 
 
-
     public float InjureQuokka(float damage)
     {
         _health -= damage;

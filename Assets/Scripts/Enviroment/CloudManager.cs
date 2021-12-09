@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Factory; // From GameFactory class
 
 // Located in Enviroment GO
 // Only handles the background clouds:
 // Object pooling is used so they are reused
+
 public class CloudManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] _clouds;
+    private bool _generateMoreClouds = true;
+    [Header("How many times the in-scene clouds should be added (depth * clouds.Length)")]
+    [SerializeField]
+    private int _depth = 2;
 
+    private GameFactory _gameFactory = new GameFactory();
+
+    [SerializeField]
+    private GameObject[] _clouds;
 
     [Range(0, 1f)]
     [SerializeField]
@@ -17,7 +26,11 @@ public class CloudManager : MonoBehaviour
 
     [Header("Should be beyond the end of the map")]
     [SerializeField]
-    private float _xLimit = 500f;
+    private float _xLimit = 250f;
+
+    [Header("Basic z-position for the clouds")]
+    [SerializeField]
+    private float _zPosition = 3f;
 
     [Range(0.2f, 10f)]
     [SerializeField]
@@ -37,6 +50,10 @@ public class CloudManager : MonoBehaviour
         HideOrShowClouds(_clouds, false);
         _activeClouds = GetStartingClouds(_clouds, _percentage);
         HideOrShowClouds(_activeClouds, true);
+        if (_generateMoreClouds)
+        {
+            StartCoroutine(WaitForMoreClouds(_clouds.Length, _depth));
+        }
         DontDestroyOnLoad(gameObject);
     }
 
@@ -70,10 +87,10 @@ public class CloudManager : MonoBehaviour
     }
 
     /// <summary>
-    ///  
+    /// Pushes out the in editor chosen clouds and activates them
     /// </summary>
     /// <param name="clouds"></param>
-    /// <param name="percentage"></param>
+    /// <param name="percentage"></param> 
     /// <returns></returns>
     private List<GameObject> GetStartingClouds(GameObject[] clouds, float percentage)
     {
@@ -85,7 +102,35 @@ public class CloudManager : MonoBehaviour
         }
         return showingClouds;
     }
+    /// <summary>
+    /// Contact the factory to create more clouds
+    /// </summary>
+    private void GenerateMoreClouds()
+    {
+        StartCoroutine(WaitForMoreClouds(_clouds.Length, _depth));
+    }
 
+    private IEnumerator WaitForMoreClouds(int rowLength, int depth)
+    {
+        for (int j = 0; j < depth; j++)
+        {
+            yield return new WaitForSeconds(2.0f);
+            for (int i = 0; i < rowLength; i++)
+            {
+                _gameFactory.CreateItem(IGameFactory.Item.Cloud, CreateCloud());
+            }
+        }
+    }
+
+    // There is to many Random calls in here for my liking, but clouds are random, so what you gonna do?
+    private GameObject CreateCloud()
+    {
+        GameObject cloud = Instantiate(_clouds[0], new Vector3(-_xLimit, Random.Range(10, 30), _zPosition), Quaternion.identity);
+        _activeClouds.Add(cloud);
+        _cloudSpeeds.Add(Random.Range(0.1f, _maxCloudSpeed));
+        DontDestroyOnLoad(cloud);
+        return cloud;
+    }
 
     private void MoveClouds(List<GameObject> clouds)
     {

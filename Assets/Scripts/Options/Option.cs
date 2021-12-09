@@ -10,19 +10,6 @@ public class Option : MonoBehaviour
 
     public string _sceneName = "SceneNameHere";
 
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == _playerTag)

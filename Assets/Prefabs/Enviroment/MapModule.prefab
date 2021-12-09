@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6909558944262185816}
   m_Layer: 0
-  m_Name: GameStart
+  m_Name: EnemySpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +270,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5112103266881340463}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.46, y: 3.34, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5354932025286317048}
@@ -405,7 +405,7 @@ MonoBehaviour:
   _ledges:
   - {fileID: 3671287697215209658}
   - {fileID: 4764870246790636547}
-  _startPosition: {fileID: 6909558944262185816}
+  _enemySpawnPosition: {fileID: 6909558944262185816}
 --- !u!1001 &24872263990516313
 PrefabInstance:
   m_ObjectHideFlags: 0
