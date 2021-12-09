@@ -6,15 +6,17 @@ using UnityEngine;
 
 public class Quokka : MonoBehaviour
 {
-    public GameObject katana;
-    public GameObject chainSaw;
+    [SerializeField]
+    private GameObject _katana;
+    [SerializeField]
+    private GameObject _chainsaw;
 
     public GameObject curWeapon { get; private set; }
 
     private Vector3 _startKatanaPosition;
     private readonly Vector3 _altKatanaPosition = new Vector3(-0.38f, -0.34f, 0.5f);
     private Vector3 _startChainSawPosition;
-    private readonly Vector3 _altChainSawPosition = new Vector3(0.475f, -0.53f, 0.518f);
+    private readonly Vector3 _altChainsawPosition = new Vector3(0.475f, -0.53f, 0.518f);
 
     private List<GameObject> _weapons = new List<GameObject>();
 
@@ -43,20 +45,19 @@ public class Quokka : MonoBehaviour
     private int _defaultAdditionalJumps = 1;
     private int _additionalJump;
 
-    [SerializeField]
-    private Transform _weaponHolder;
 
     // Start is called before the first frame update
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _weapons.Add(katana);
-        _weapons.Add(chainSaw);
-        _startChainSawPosition = chainSaw.transform.localPosition;
-        _startKatanaPosition = katana.transform.localPosition;
-        curWeapon = ChangeWeapon(chainSaw);
+        _weapons.Add(_katana);
+        _weapons.Add(_chainsaw);
+        _startChainSawPosition = _chainsaw.transform.localPosition;
+        _startKatanaPosition = _katana.transform.localPosition;
+        curWeapon = ChangeWeapon(_chainsaw);
         // Quokka must be alive during scene changes, no?
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
+
     }
 
     // Update is called once per frame
@@ -67,6 +68,16 @@ public class Quokka : MonoBehaviour
         BetterJump();
         CheckIfGrounded();
         ChangeDirection();
+        if (curWeapon != _chainsaw && Input.GetKey(KeyCode.C))
+        {
+            StateManager.Instance.ChangeCurrentWeapon(State.Weapon.Chainsaw);
+            curWeapon = ChangeWeapon(_chainsaw);
+        }
+        else if (curWeapon != _katana && Input.GetKey(KeyCode.K))
+        {
+            StateManager.Instance.ChangeCurrentWeapon(State.Weapon.Katana);
+            curWeapon = ChangeWeapon(_katana);
+        }
     }
 
     private float _movement = 0;
@@ -118,7 +129,7 @@ public class Quokka : MonoBehaviour
         }
     }
 
-    public GameObject ChangeWeapon(GameObject weapon) 
+    private GameObject ChangeWeapon(GameObject weapon) 
     {
         foreach (GameObject w in _weapons)
         {
@@ -134,31 +145,34 @@ public class Quokka : MonoBehaviour
         return weapon;
     }
 
-    private const float katanaZAngle = 5.306f;
+    private const float katanaZAngle = 5.306f; // Precision is key regarding katanas...
 
     public void ChangeDirection()
     {
         if (_movement > 0)
         {
-            katana.transform.localPosition = _startKatanaPosition;
-            katana.transform.localEulerAngles = new Vector3(180, 180, katanaZAngle);
+            _katana.transform.localPosition = _startKatanaPosition;
+            _katana.transform.localEulerAngles = new Vector3(180, 180, katanaZAngle);
 
-            chainSaw.transform.localPosition = _startChainSawPosition;
-            chainSaw.transform.localEulerAngles = new Vector3(0, 180, 0);
+            _chainsaw.transform.localPosition = _startChainSawPosition;
+            _chainsaw.transform.localEulerAngles = new Vector3(0, 180, 0);
         }
         else if (_movement < 0)
         {
-            katana.transform.localPosition = _altKatanaPosition;
-            katana.transform.localEulerAngles = new Vector3(180, 0, katanaZAngle);
+            _katana.transform.localPosition = _altKatanaPosition;
+            _katana.transform.localEulerAngles = new Vector3(180, 0, katanaZAngle);
 
-            chainSaw.transform.localPosition = _altChainSawPosition;
-            chainSaw.transform.localEulerAngles = new Vector3(180, 0, 0);
+            _chainsaw.transform.localPosition = _altChainsawPosition;
+            _chainsaw.transform.localEulerAngles = new Vector3(180, 0, 0);
         }
     }
 
-    public float TakeDamage(float damage)
+
+
+    public float InjureQuokka(float damage)
     {
         _health -= damage;
+        StateManager.Instance.RemoveLife(damage);
         return _health;
     }
 }

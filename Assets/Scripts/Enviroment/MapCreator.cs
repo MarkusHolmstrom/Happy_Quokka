@@ -9,6 +9,12 @@ public class MapCreator : MonoBehaviour
     public GameObject seesawPrefab;
     public GameObject spinOpstaclePrefab;
 
+    private List<MapModule> _mapModules = new List<MapModule>();
+    private float _xPosition = 0, _yPosition = 0;
+    private int _cornerIndex = 1;
+
+    private int _obstacleIndex;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +27,10 @@ public class MapCreator : MonoBehaviour
         
     }
 
-    private List<MapModule> _mapModules = new List<MapModule>();
-    private float _xPosition = 0, _yPosition = 0;
-    private int _cornerIndex = 1;
 
     public void LoadNewLevel(int rows, int columns, int numberOfModules)
     {
+        _obstacleIndex = 0;
         for (int i = 0; i < columns; i++)
         {
             _xPosition = 0;
@@ -55,12 +59,24 @@ public class MapCreator : MonoBehaviour
         }
     }
 
+    
     private GameObject GetModuleCorner(int cornerIndex)
     {
         GameObject mod = Instantiate(modulePrefab, new Vector3(_xPosition, _yPosition, 0), Quaternion.identity);
         MapModule module = mod.GetComponent<MapModule>();
-        GameObject seesaw = Instantiate(seesawPrefab, mod.transform);
-        seesaw.transform.localPosition = Vector3.zero;
+        if (_obstacleIndex == 0)
+        {
+            GameObject seesaw = Instantiate(seesawPrefab, mod.transform);
+            seesaw.transform.localPosition = Vector3.zero;
+            _obstacleIndex++;
+        }
+        else
+        {
+            GameObject spin = Instantiate(spinOpstaclePrefab, mod.transform);
+            spin.transform.localPosition = Vector3.zero;
+            _obstacleIndex = 0;
+        }
+
         if (cornerIndex == 1)
         {
             module.DeActivateBorder(2);

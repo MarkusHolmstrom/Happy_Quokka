@@ -264,4 +264,4 @@ MonoBehaviour:
   arms:
   - {fileID: 5889976629366359264}
   - {fileID: 1871143617480280414}
-  _rotateSpeed: 6
+  _rotateSpeed: 15

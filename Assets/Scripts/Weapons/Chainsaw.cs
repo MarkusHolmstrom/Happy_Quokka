@@ -14,7 +14,7 @@ public class Chainsaw : MonoBehaviour, Weapon.IWeapon
     private float _angleX = 90;
     private readonly float _rotatingChainSpeed = 5000f;
     private float _idleChainSpeed = 50f;
-    private float _acc = 10f;
+    private float _acceleration = 10f;
 
 
     public float DoDamage(float damage)
@@ -25,12 +25,21 @@ public class Chainsaw : MonoBehaviour, Weapon.IWeapon
     // Start is called before the first frame update
     void Awake()
     {
-        StartCoroutine(StartRotation());
+        // StartCoroutine(StartRotation());
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Mouse0) && !isActive)
+        {
+            StartCoroutine(StartRotation());
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            StopCoroutine(StartRotation());
+            isActive = false;
+        }
         if (isActive)
         {
             RotateChains(_rotatingChainSpeed);
@@ -38,7 +47,7 @@ public class Chainsaw : MonoBehaviour, Weapon.IWeapon
         else
         {
             RotateChains(_idleChainSpeed);
-            _idleChainSpeed += _acc * Time.deltaTime;
+            _idleChainSpeed += _acceleration * Time.deltaTime;
         }
     }
 

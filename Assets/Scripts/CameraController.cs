@@ -12,9 +12,10 @@ public class CameraController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _qoukka = GameObject.FindGameObjectWithTag("Player");
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame

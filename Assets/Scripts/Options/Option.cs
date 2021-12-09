@@ -5,16 +5,16 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Option : MonoBehaviour
 {
-    public string playerTag = "Player";
+    [SerializeField]
+    private string _playerTag = "Player";
 
-    public string sceneName = "SceneNameHere";
+    public string _sceneName = "SceneNameHere";
 
-    public StoryManager sm;
 
     // Start is called before the first frame update
     void Awake()
     {
-        sm = StoryManager.Instance; // works only for the box, wwhy?
+        
     }
 
     // Update is called once per frame
@@ -25,13 +25,9 @@ public class Option : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == playerTag)
+        if (other.tag == _playerTag)
         {
-            if (sm == null)
-            {
-                sm = StoryManager.Instance;
-            }
-            sm.MoveStory(this);
+            StoryManager.Instance.MoveStory(this);
             Destroy(this.gameObject);
         }
     }

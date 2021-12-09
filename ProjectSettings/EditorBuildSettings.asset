@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/StartScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/001.unity
@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/100.unity
     guid: 75cfe4b52e7197f499d35530f4591171
+  - enabled: 1
+    path: Assets/Scenes/PinkyBeach.unity
+    guid: 7ebac2af730815e4e98514576c50787d
+  - enabled: 1
+    path: Assets/Scenes/RottnestIsland.unity
+    guid: d3bcecfcf7c35a6458754a25619ec19e
   m_configObjects: {}

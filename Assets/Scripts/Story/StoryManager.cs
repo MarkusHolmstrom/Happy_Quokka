@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(SceneManagement))]
 public class StoryManager : MonoBehaviour
 {
     // Singleton:
     private static StoryManager _instance;
     public static StoryManager Instance { get { return _instance; } }
 
-    // 
-    private SceneManagement sceneManagement;
+    [Header("Moves the player to this vector3 in the world map when loading a new scene:")]
+    [SerializeField]
+    private Vector3 _startPositionInNewScene = new Vector3(0, 4, 0);
 
+    private GameObject _quokka;
 
     void Awake()
     {
@@ -19,8 +21,8 @@ public class StoryManager : MonoBehaviour
         {
             _instance = this;
 
-            sceneManagement = GetComponent<SceneManagement>();
-            DontDestroyOnLoad(this.gameObject);
+            _quokka = GameObject.FindGameObjectWithTag("Player");
+            DontDestroyOnLoad(gameObject);
 
         }
         else
@@ -35,11 +37,11 @@ public class StoryManager : MonoBehaviour
         
     }
 
-    // Called from Option, when it gets activated by player
+    // Called from class "Option", when it gets activated by player
     public Vector3Int MoveStory(Option opt)
     {
-        Debug.Log("Quokka detected");
-        sceneManagement.LoadANewScene(opt.sceneName);
+        _quokka.transform.position = _startPositionInNewScene;
+        SceneManager.LoadScene(opt._sceneName);
         return Vector3Int.zero;
     }
 }

@@ -56,16 +56,24 @@
     <Compile Include="Assets\Scripts\Enviroment\Seesaw.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Chainsaw.cs" />
-    <Compile Include="Assets\Scripts\Story\SceneManagement.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
+    <Compile Include="Assets\Scripts\State\State.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Factories\GameFactory.cs" />
     <Compile Include="Assets\Scripts\Weapons\Katana.cs" />
     <Compile Include="Assets\Scripts\Options\Option.cs" />
     <Compile Include="Assets\Scripts\Enviroment\SpinObstacle.cs" />
     <Compile Include="Assets\Scripts\Enviroment\MapModule.cs" />
+    <Compile Include="Assets\Scripts\CanvasManager.cs" />
+    <Compile Include="Assets\Scripts\PingPong.cs" />
+    <Compile Include="Assets\Scripts\State\StateManager.cs" />
     <Compile Include="Assets\Scripts\Quokka.cs" />
     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\BackGroundCloud.cs" />
+    <Compile Include="Assets\Scripts\Enviroment\CloudManager.cs" />
     <Compile Include="Assets\Scripts\Enviroment\MapCreator.cs" />
     <Compile Include="Assets\Scripts\Story\StoryManager.cs" />
+    <Compile Include="Assets\Scripts\State\EnemyState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
