@@ -14,7 +14,7 @@ public class StateManager : MonoBehaviour
     [SerializeField]
     private Text _livesText;
 
-    // Saves the states as a list, can be useful if the game option of visiting former scenes
+    // Saves the states as a list, can be useful if the game option of visiting former scenes is possible
     private LinkedList<State> _states = new LinkedList<State>();
 
     // Singleton:

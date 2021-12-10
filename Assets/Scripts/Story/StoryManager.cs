@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 // Scenes information:
 // StartScene = a startscene
-// 100, 001 and 010 are next, depending on which option the player chooses
-// The island scenes are last and pretty much empty
+// 100, 001 and 010 are next, depending on which option the player chooses in startscene
+// The island beach scenes are last and pretty much empty, just beatiful views and deadends
 
 public class StoryManager : MonoBehaviour
 {
@@ -36,17 +36,10 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Called from class "Option", when it gets activated by player
-    public Vector3Int MoveStory(Option opt)
+    public void MoveStory(Option opt)
     {
-        _quokka.transform.position = _startPositionInNewScene;
         SceneManager.LoadScene(opt._sceneName);
-        return Vector3Int.zero;
+        _quokka.transform.position = _startPositionInNewScene;
     }
 }

@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _generateMoreClouds: 1
-  _depth: 2
+  _depth: 8
   _clouds:
   - {fileID: 6289819380823358688}
   - {fileID: 2750643694811771371}
@@ -70,6 +70,7 @@ MonoBehaviour:
   - {fileID: 2750643693331405996}
   _percentage: 1
   _xLimit: 250
+  _xPosition: -60
   _zPosition: 3
   _maxCloudSpeed: 5
 --- !u!1001 &1453129620060593021

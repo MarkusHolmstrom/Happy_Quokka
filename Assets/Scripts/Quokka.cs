@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// https://craftgames.co/unity-2d-platformer-movement/
 
 public class Quokka : MonoBehaviour
 {
@@ -45,6 +44,9 @@ public class Quokka : MonoBehaviour
     private int _defaultAdditionalJumps = 1;
     private int _additionalJump;
 
+    private float _movement = 0;
+
+    private const float katanaZAngle = 5.306f; // Precision is key regarding katanas...
 
     // Start is called before the first frame update
     void Awake()
@@ -79,8 +81,6 @@ public class Quokka : MonoBehaviour
             curWeapon = ChangeWeapon(_katana);
         }
     }
-
-    private float _movement = 0;
 
     private void Move()
     {
@@ -145,8 +145,6 @@ public class Quokka : MonoBehaviour
         return weapon;
     }
 
-    private const float katanaZAngle = 5.306f; // Precision is key regarding katanas...
-
     public void ChangeDirection()
     {
         if (_movement > 0)
@@ -166,7 +164,6 @@ public class Quokka : MonoBehaviour
             _chainsaw.transform.localEulerAngles = new Vector3(180, 0, 0);
         }
     }
-
 
     public float InjureQuokka(float damage)
     {

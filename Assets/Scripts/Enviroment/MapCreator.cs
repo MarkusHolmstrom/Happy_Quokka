@@ -4,6 +4,9 @@ using UnityEngine;
 using Enviroment;
 using Factory; // From GameFactory class
 
+// This is only used in scenes 100, 010 and 001
+// Creates a moduled map and adds enemies via the factory
+
 public class MapCreator : MonoBehaviour
 {
     [SerializeField]
@@ -15,7 +18,7 @@ public class MapCreator : MonoBehaviour
 
     [SerializeField]
     private GameObject _enemyPrefab;
-    [Range(0, 5)]
+    [Range(0, 4)]
     [SerializeField]
     private int _nrOfEnemiesPerScene = 3;
 
@@ -141,12 +144,19 @@ public class MapCreator : MonoBehaviour
             gameFactory.CreateItem(IGameFactory.Item.Enemy, SetUpEnemy(i));
         }
     }
-
+    /// <summary>
+    /// Instantiates an enemy and set its position based on the map modules created
+    /// with it set as its parent, to later remove it so they are not depended on the 
+    /// map module. 
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     private GameObject SetUpEnemy(int index)
     {
-        GameObject enemy = Instantiate(_enemyPrefab);
+        index++; // Keeps the first module free from enemies, room for player to land
+        GameObject enemy = Instantiate(_enemyPrefab, _mapModules[index].gameObject.transform);
         enemy.transform.position = _mapModules[index].GetSpawnTransform().position;
-        Debug.LogWarning(enemy.transform.position);
+        enemy.transform.SetParent(null);
         return enemy;
     }
 }
